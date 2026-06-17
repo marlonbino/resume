@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: "Roseline Buyeka",
     type: "profile",
-    images: [{ url: `${siteUrl}/hero-ros.jpg`, width: 2848, height: 1600 }],
+    images: [{ url: `${siteUrl}/og-roseline.jpg`, width: 1000, height: 1000 }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: [`${siteUrl}/hero-ros.jpg`],
+    images: [`${siteUrl}/og-roseline.jpg`],
   },
   robots: { index: true, follow: true },
 };
