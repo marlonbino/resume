@@ -93,7 +93,7 @@ export function StepsSection() {
                 style={{
                   fontFamily: "var(--font-serif), serif",
                   fontStyle: "italic",
-                  fontSize: "clamp(15px, 1.5vw, 17px)",
+                  fontSize: "clamp(17px, 1.7vw, 19px)",
                   color: "var(--text-secondary)",
                   lineHeight: 1.85,
                   position: "relative",

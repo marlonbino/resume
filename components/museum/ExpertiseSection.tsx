@@ -96,7 +96,7 @@ function RoomCard({ room, delay }: { room: typeof rooms[0]; delay: number }) {
           <p style={{
             fontFamily: "var(--font-serif), serif",
             fontStyle: "italic",
-            fontSize: "clamp(14px, 1.4vw, 16px)",
+            fontSize: "clamp(16px, 1.6vw, 18px)",
             color: "var(--text-secondary)",
             lineHeight: 1.8,
           }}>
@@ -152,7 +152,7 @@ export function ExpertiseSection() {
             <p style={{
               fontFamily: "var(--font-serif), serif",
               fontStyle: "italic",
-              fontSize: 17,
+              fontSize: 18,
               color: "var(--text-secondary)",
               marginTop: 16,
               maxWidth: 480,

@@ -91,7 +91,7 @@ function SectionHeader() {
       <p style={{
         fontFamily: "var(--font-serif), serif",
         fontStyle: "italic",
-        fontSize: 16,
+        fontSize: 17,
         color: "var(--text-secondary)",
         maxWidth: 440,
         lineHeight: 1.7,

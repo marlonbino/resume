@@ -25,7 +25,7 @@ export function MuseumNav() {
       const ids = links.map((l) => l.href.slice(1));
       for (const id of [...ids].reverse()) {
         const el = document.getElementById(id);
-        if (el && sy >= el.offsetTop - 140) { setActive(id); break; }
+        if (el && el.getBoundingClientRect().top <= 140) { setActive(id); break; }
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });

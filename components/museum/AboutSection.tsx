@@ -48,10 +48,10 @@ export function AboutSection() {
                 paddingLeft: 16,
               }}
             >
-              <p style={{ fontFamily: "var(--font-serif), serif", fontStyle: "italic", fontSize: 15, color: "var(--text-muted)" }}>
+              <p style={{ fontFamily: "var(--font-serif), serif", fontStyle: "italic", fontSize: 16, color: "var(--text-muted)" }}>
                 Self-portrait · 2026
               </p>
-              <p style={{ fontFamily: "var(--font-serif), serif", fontStyle: "italic", fontSize: 15, color: "var(--text-secondary)", marginTop: 6, lineHeight: 1.7 }}>
+              <p style={{ fontFamily: "var(--font-serif), serif", fontStyle: "italic", fontSize: 16, color: "var(--text-secondary)", marginTop: 6, lineHeight: 1.7 }}>
                 &ldquo;The medium is code; the subject is people.&rdquo;
               </p>
             </div>
