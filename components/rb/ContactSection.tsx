@@ -266,7 +266,6 @@ const Field = forwardRef<
 export function ContactSection() {
   const [btnHover, setBtnHover] = useState(false);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [via, setVia] = useState<"email" | "whatsapp">("email");
   const [showHint, setShowHint] = useState(false);
@@ -279,9 +278,7 @@ export function ContactSection() {
       return;
     }
     setShowHint(false);
-    const intro = name.trim() ? `Hi Roseline, I'm ${name}.\n\n` : "";
-    const replyTo = email.trim() ? `\n\nReply to: ${email}` : "";
-    const body = `${intro}${message}${replyTo}`;
+    const body = name.trim() ? `Hi Roseline, I'm ${name}.\n\n${message}` : message;
 
     if (via === "whatsapp") {
       const encoded = encodeURIComponent(body);
@@ -353,7 +350,6 @@ export function ContactSection() {
         <Reveal delay={120}>
           <div>
             <Field placeholder="Your name" value={name} onChange={setName} />
-            <Field as="input" type="email" placeholder="Your email" value={email} onChange={setEmail} />
             <Field
               ref={messageRef}
               as="textarea"
