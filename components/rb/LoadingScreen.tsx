@@ -39,13 +39,13 @@ export function LoadingScreen() {
           fontFamily: "var(--font-serif), serif",
           fontStyle: "italic",
           fontSize: "clamp(22px, 3.6vw, 34px)",
-          color: "var(--gold-light)",
+          color: "var(--teal-light)",
           letterSpacing: "0.06em",
           opacity: phase === "exit" ? 0 : 1,
           transition: "opacity 0.3s ease",
         }}
       >
-        Marlon Isaiah Amunga
+        Roseline Buyeka
       </p>
 
       {/* Loading bar track */}
@@ -53,7 +53,7 @@ export function LoadingScreen() {
         style={{
           width: "clamp(200px, 30vw, 360px)",
           height: 1,
-          background: "rgba(200,170,100,0.15)",
+          background: "rgba(139,92,246,0.15)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -65,9 +65,9 @@ export function LoadingScreen() {
             top: 0,
             height: "100%",
             width: `${barWidth}%`,
-            background: "var(--gold-light)",
+            background: "var(--teal-light)",
             transition: "none",
-            boxShadow: "0 0 8px rgba(226,185,106,0.6)",
+            boxShadow: "0 0 8px rgba(167,139,250,0.6)",
           }}
         />
       </div>

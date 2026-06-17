@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LoadingScreen }     from "@/components/rb/LoadingScreen";
 import { Nav }               from "@/components/rb/Nav";
 import { HeroSection }       from "@/components/rb/HeroSection";
 import { AboutSection }      from "@/components/rb/AboutSection";
@@ -59,6 +60,7 @@ export default function RoselinePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
+      <LoadingScreen />
       <Nav />
       <HeroSection />
       <AboutSection />
