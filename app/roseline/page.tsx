@@ -12,13 +12,16 @@ import { ContactSection }    from "@/components/rb/ContactSection";
 const siteUrl = "https://roselineondeche.vercel.app";
 const title = "Roseline Buyeka, DNP, MPH, RN — Nurse Executive & Healthcare Leader";
 const description =
-  "Nurse executive with 18+ years in healthcare. Director of Clinical Services at ICHS, Seattle. DNP candidate at University of Washington.";
+  "Nurse executive with 18+ years in healthcare. Director of Clinical Services at ICHS, Seattle. DNP holder from the University of Washington.";
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
     "Roseline Buyeka",
+    "Roseline Ondeche",
+    "Roseline Ondeche Buyeka",
+    "Ondeche",
     "Nurse Executive Seattle",
     "Healthcare Leader",
     "Director of Clinical Services ICHS",
@@ -46,6 +49,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Roseline Buyeka",
+  alternateName: ["Roseline Ondeche", "Roseline Ondeche Buyeka", "Ondeche"],
   jobTitle: "Director of Clinical Services",
   url: siteUrl,
   worksFor: { "@type": "Organization", name: "ICHS" },
