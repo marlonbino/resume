@@ -18,7 +18,7 @@ export function AboutSection() {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <p style={styles.caption}>Healthcare leader · Nairobi → Seattle</p>
+            <p style={styles.caption}>Healthcare leader · Seattle, WA</p>
           </div>
         </Reveal>
 
@@ -32,7 +32,7 @@ export function AboutSection() {
               I lead clinical services at ICHS in Seattle — a federally qualified community health center serving 32,000+ patients across 5 sites. My work sits at the intersection of clinical operations, population health, and health equity. I've spent my career building systems that actually reach the people who need them most.
             </p>
             <p style={styles.paragraph}>
-              I'm appointed to the WA Maternal Mortality Review Panel, sit on the board of Mother Africa, and am finishing my DNP at the University of Washington. My nursing roots are in Kenya — that's where the drive came from.
+              I'm appointed to the WA Maternal Mortality Review Panel, sit on the board of Mother Africa, and hold a DNP from the University of Washington.
             </p>
             <p style={styles.location}>↳ Issaquah, WA · linkedin.com/in/roseline-buyeka</p>
           </div>

@@ -10,7 +10,7 @@ import { ContactSection }    from "@/components/rb/ContactSection";
 
 // Update this once roselineondeche.co.ke is live and set as the primary domain.
 const siteUrl = "https://roselineondeche.vercel.app";
-const title = "Roseline Buyeka, DNP, MPH, RN — Nurse Executive & Healthcare Leader";
+const title = "Roseline Buyeka, DNP, MPH, MSN, BSN, RN — Nurse Executive & Healthcare Leader";
 const description =
   "Nurse executive with 18+ years in healthcare. Director of Clinical Services at ICHS, Seattle. DNP holder from the University of Washington.";
 

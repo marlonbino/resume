@@ -102,7 +102,7 @@ function HeroContent({ loaded }: { loaded: boolean }) {
     }}>
       {/* Eyebrow */}
       <p className="section-label" style={{ ...rise(0.05), marginBottom: 20 }}>
-        DNP · MPH · RN — Nairobi, Kenya → Seattle, WA
+        DNP · MPH · MSN · BSN · RN — Seattle, WA
       </p>
 
       {/* Name block */}
@@ -147,7 +147,6 @@ function HeroContent({ loaded }: { loaded: boolean }) {
       }}>
         18 years in healthcare. Right now I&rsquo;m Director of Clinical Services at ICHS
         in Seattle, working on what equitable care actually looks like in practice.
-        Originally from Kenya.
       </p>
 
       {/* CTA row */}
