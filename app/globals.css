@@ -1,0 +1,312 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --bg: #0e0c0a;
+  --bg-2: #141210;
+  --surface: #1c1916;
+  --border: rgba(200, 170, 100, 0.22);
+  --gold: #c8a455;
+  --gold-light: #e2b96a;
+  /* Readable text on dark bg — WCAG AA contrast ≥4.5:1 */
+  --text-primary: #f8f4ee;      /* headings — bright warm white */
+  --text-secondary: #ddd5c4;    /* body paragraphs — was #c8bfb0, too dim */
+  --text-muted: #9a8e7a;        /* labels, captions */
+  --text-dim: #c0ae96;          /* dates, roles — was #a89880, too dim */
+  --accent-warm: #c8a060;
+  --radius: 0px;
+
+  --background: var(--bg);
+  --foreground: var(--text-primary);
+  --card: var(--surface);
+  --card-foreground: var(--text-primary);
+  --border-color: var(--border);
+  --ring: var(--gold);
+}
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --color-background: var(--bg);
+  --color-foreground: var(--text-primary);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  /* Ensure all body text is readable on dark bg */
+  p, li {
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+  }
+  ::selection {
+    background: rgba(180, 144, 80, 0.3);
+    color: var(--text-primary);
+  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+}
+
+/* ── Museum vignette overlay ── */
+.museum-vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(8,6,4,0.7) 100%);
+  pointer-events: none;
+}
+
+/* ── Hairline divider ── */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  opacity: 0.3;
+}
+
+/* ── Spotlight effect for hero ── */
+.spotlight {
+  background: radial-gradient(ellipse 60% 50% at 50% 80%, rgba(180,144,80,0.12) 0%, transparent 70%);
+}
+
+/* ── Section reveal — with will-change for GPU compositing ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  will-change: opacity, transform;
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  will-change: opacity, transform;
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  will-change: opacity, transform;
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ── Section wipe transition ── */
+.section-wipe {
+  position: relative;
+  overflow: hidden;
+}
+.section-wipe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  transform-origin: left;
+  transform: scaleX(1);
+  z-index: 10;
+  transition: transform 1.1s cubic-bezier(0.77,0,0.18,1);
+  pointer-events: none;
+}
+.section-wipe.wipe-done::before {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* ── Grain texture ── */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* ── Exhibit card hover ── */
+.exhibit-card {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+.exhibit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(180,144,80,0.25);
+}
+
+/* ── Image spotlight on hover ── */
+.img-spotlight img {
+  filter: brightness(0.7) saturate(0.8);
+  transition: filter 0.5s ease;
+}
+.img-spotlight:hover img {
+  filter: brightness(0.9) saturate(1);
+}
+
+/* ── Nav link underline ── */
+.nav-link {
+  position: relative;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold-light);
+  transition: width 0.3s ease;
+}
+.nav-link:hover { color: var(--gold-light); }
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+.nav-link.active { color: var(--gold-light); }
+
+/* ── Roman numeral label ── */
+.roman-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+/* ── Readable body text helpers ── */
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.serif-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.label-caps {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── Keyframes ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes lineGrow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+@keyframes curtainReveal {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0% 0 0); }
+}
+@keyframes driftUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Scroll progress ring ── */
+.progress-ring {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 52px;
+  height: 52px;
+  z-index: 90;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.progress-ring.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+/* ── Loading screen ── */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.loading-screen.exit {
+  animation: loadingExit 0.7s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+@keyframes loadingExit {
+  0%   { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+/* ── Numbered step (01/02/03) slide-in ── */
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(60px, 10vw, 120px);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.12;
+  user-select: none;
+  transition: opacity 0.4s ease;
+}
+.step-card:hover .step-number { opacity: 0.28; }
+
+nextjs-portal { display: none !important; }
