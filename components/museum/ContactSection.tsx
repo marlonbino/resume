@@ -158,7 +158,7 @@ function ContactForm() {
             (e.currentTarget as HTMLElement).style.background = message.trim() ? "var(--gold)" : "transparent";
           }}
         >
-          {via === "whatsapp" ? "Open WhatsApp →" : "Open Email →"}
+          {via === "whatsapp" ? "Send on WhatsApp →" : "Send Email →"}
         </button>
       </div>
     </div>

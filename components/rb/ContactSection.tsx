@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { forwardRef, useState, useRef } from "react";
 import { Reveal } from "@/components/rb/Reveal";
+
+const WHATSAPP_NUMBER = "14255245066";
 
 // ── Styles ──────────────────────────────────────────────────────────────────
 
@@ -131,6 +133,29 @@ const sendButtonStyle: React.CSSProperties = {
   marginTop: "8px",
 };
 
+const viaLabelStyle: React.CSSProperties = {
+  fontFamily: "Inter, sans-serif",
+  fontSize: "10px",
+  fontWeight: 700,
+  letterSpacing: "0.2em",
+  textTransform: "uppercase",
+  color: "var(--text-muted)",
+  marginBottom: "12px",
+};
+
+const viaToggleRowStyle: React.CSSProperties = {
+  display: "flex",
+  gap: "12px",
+  marginBottom: "24px",
+};
+
+const hintStyle: React.CSSProperties = {
+  fontFamily: "Inter, sans-serif",
+  fontSize: "11px",
+  color: "#e07a5f",
+  marginTop: "8px",
+};
+
 const footerStyle: React.CSSProperties = {
   marginTop: "80px",
   paddingTop: "28px",
@@ -185,21 +210,25 @@ function PulseDot() {
 }
 
 // ── Field component ─────────────────────────────────────────────────────────
-function Field({
-  as = "input",
-  placeholder,
-  rows,
-  type = "text",
-}: {
-  as?: "input" | "textarea";
-  placeholder: string;
-  rows?: number;
-  type?: string;
-}) {
+const Field = forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  {
+    as?: "input" | "textarea";
+    placeholder: string;
+    rows?: number;
+    type?: string;
+    value: string;
+    onChange: (value: string) => void;
+    errorColor?: string;
+  }
+>(function Field(
+  { as = "input", placeholder, rows, type = "text", value, onChange, errorColor },
+  ref
+) {
   const [focused, setFocused] = useState(false);
   const style: React.CSSProperties = {
     ...inputBaseStyle,
-    borderBottomColor: focused ? "var(--teal)" : "var(--border)",
+    borderBottomColor: errorColor ?? (focused ? "var(--teal)" : "var(--border)"),
     resize: as === "textarea" ? "vertical" : undefined,
     minHeight: as === "textarea" ? "96px" : undefined,
   };
@@ -208,31 +237,60 @@ function Field({
     <div style={fieldWrapStyle}>
       {as === "textarea" ? (
         <textarea
+          ref={ref as React.Ref<HTMLTextAreaElement>}
           placeholder={placeholder}
           rows={rows}
           style={style}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
       ) : (
         <input
+          ref={ref as React.Ref<HTMLInputElement>}
           type={type}
           placeholder={placeholder}
           style={style}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
       )}
     </div>
   );
-}
+});
 
 // ── Main component ──────────────────────────────────────────────────────────
 export function ContactSection() {
   const [btnHover, setBtnHover] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [via, setVia] = useState<"email" | "whatsapp">("email");
+  const [showHint, setShowHint] = useState(false);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
-    window.location.href = "mailto:ondeche@gmail.com";
+    if (!message.trim()) {
+      setShowHint(true);
+      messageRef.current?.focus();
+      return;
+    }
+    setShowHint(false);
+    const intro = name.trim() ? `Hi Roseline, I'm ${name}.\n\n` : "";
+    const replyTo = email.trim() ? `\n\nReply to: ${email}` : "";
+    const body = `${intro}${message}${replyTo}`;
+
+    if (via === "whatsapp") {
+      const encoded = encodeURIComponent(body);
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, "_blank");
+    } else {
+      const subject = encodeURIComponent("Message from your site");
+      const encodedBody = encodeURIComponent(body);
+      window.location.href = `mailto:ondeche@gmail.com?subject=${subject}&body=${encodedBody}`;
+    }
   };
 
   return (
@@ -294,9 +352,47 @@ export function ContactSection() {
         {/* Right: form */}
         <Reveal delay={120}>
           <div>
-            <Field placeholder="Your name" />
-            <Field as="input" type="email" placeholder="Your email" />
-            <Field as="textarea" placeholder="Your message" rows={4} />
+            <Field placeholder="Your name" value={name} onChange={setName} />
+            <Field as="input" type="email" placeholder="Your email" value={email} onChange={setEmail} />
+            <Field
+              ref={messageRef}
+              as="textarea"
+              placeholder="Your message"
+              rows={4}
+              value={message}
+              onChange={(v) => {
+                setMessage(v);
+                if (v.trim()) setShowHint(false);
+              }}
+              errorColor={showHint ? "#e07a5f" : undefined}
+            />
+            {showHint && <p style={hintStyle}>Write a message above first — then this button will send it.</p>}
+
+            <p style={viaLabelStyle}>Send via</p>
+            <div style={viaToggleRowStyle}>
+              {(["email", "whatsapp"] as const).map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => setVia(opt)}
+                  style={{
+                    background: via === opt ? "rgba(139,92,246,0.12)" : "transparent",
+                    border: `1px solid ${via === opt ? "var(--teal)" : "var(--border)"}`,
+                    color: via === opt ? "var(--teal-light)" : "var(--text-dim)",
+                    padding: "6px 18px",
+                    cursor: "pointer",
+                    fontFamily: "Inter, sans-serif",
+                    fontSize: "10px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {opt === "whatsapp" ? "WhatsApp" : "Email"}
+                </button>
+              ))}
+            </div>
+
             <button
               style={{
                 ...sendButtonStyle,
@@ -307,7 +403,7 @@ export function ContactSection() {
               onClick={handleSend}
               type="button"
             >
-              Send Message
+              {via === "whatsapp" ? "Send on WhatsApp" : "Send Email"}
             </button>
           </div>
         </Reveal>
