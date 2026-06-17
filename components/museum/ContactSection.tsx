@@ -1,6 +1,6 @@
 "use client";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const WHATSAPP_NUMBER = "254799979067";
 
@@ -9,6 +9,8 @@ function ContactForm() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [via, setVia] = useState<"email" | "whatsapp">("email");
+  const [showHint, setShowHint] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
@@ -25,7 +27,12 @@ function ContactForm() {
   };
 
   const handleSend = () => {
-    if (!message.trim()) return;
+    if (!message.trim()) {
+      setShowHint(true);
+      textareaRef.current?.focus();
+      return;
+    }
+    setShowHint(false);
     const body = name.trim() ? `Hi Marlon, I'm ${name}.\n\n${message}` : message;
     if (via === "whatsapp") {
       const encoded = encodeURIComponent(body);
@@ -70,14 +77,33 @@ function ContactForm() {
             What&apos;s on your mind?
           </label>
           <textarea
+            ref={textareaRef}
             placeholder="Tell me about the project, role, or idea…"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => {
+              setMessage(e.target.value);
+              if (e.target.value.trim()) setShowHint(false);
+            }}
             rows={4}
-            style={{ ...inputStyle, resize: "none", lineHeight: 1.7 }}
+            style={{
+              ...inputStyle,
+              resize: "none",
+              lineHeight: 1.7,
+              borderBottomColor: showHint ? "#e07a5f" : "var(--border)",
+            }}
             onFocus={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--gold)")}
-            onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = "var(--border)")}
+            onBlur={(e) => ((e.target as HTMLElement).style.borderBottomColor = showHint ? "#e07a5f" : "var(--border)")}
           />
+          {showHint && (
+            <p style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 11,
+              color: "#e07a5f",
+              marginTop: 8,
+            }}>
+              Write a message above first — then this button will send it.
+            </p>
+          )}
         </div>
 
         {/* Send via toggle */}
@@ -109,16 +135,15 @@ function ContactForm() {
           </div>
         </div>
 
-        {/* Send button */}
+        {/* Send button — always clickable; empty message shows a hint instead of disabling */}
         <button
           onClick={handleSend}
-          disabled={!message.trim()}
           style={{
             background: message.trim() ? "var(--gold)" : "transparent",
             border: `1px solid ${message.trim() ? "var(--gold)" : "var(--border)"}`,
-            color: message.trim() ? "#0e0c0a" : "var(--text-muted)",
+            color: message.trim() ? "#0e0c0a" : "var(--text-dim)",
             padding: "14px 28px",
-            cursor: message.trim() ? "pointer" : "not-allowed",
+            cursor: "pointer",
             fontFamily: "var(--font-sans)",
             fontSize: 11,
             letterSpacing: "0.16em",
@@ -127,12 +152,10 @@ function ContactForm() {
             alignSelf: "flex-start",
           }}
           onMouseEnter={(e) => {
-            if (!message.trim()) return;
-            (e.currentTarget as HTMLElement).style.background = "var(--gold-light)";
+            (e.currentTarget as HTMLElement).style.background = message.trim() ? "var(--gold-light)" : "rgba(200,164,85,0.08)";
           }}
           onMouseLeave={(e) => {
-            if (!message.trim()) return;
-            (e.currentTarget as HTMLElement).style.background = "var(--gold)";
+            (e.currentTarget as HTMLElement).style.background = message.trim() ? "var(--gold)" : "transparent";
           }}
         >
           {via === "whatsapp" ? "Open WhatsApp →" : "Open Email →"}
