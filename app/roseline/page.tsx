@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Nav }               from "@/components/rb/Nav";
 import { HeroSection }       from "@/components/rb/HeroSection";
 import { AboutSection }      from "@/components/rb/AboutSection";
@@ -6,15 +7,58 @@ import { ExperienceSection } from "@/components/rb/ExperienceSection";
 import { EducationSection }  from "@/components/rb/EducationSection";
 import { ContactSection }    from "@/components/rb/ContactSection";
 
-export const metadata = {
-  title: "Roseline Buyeka, DNP, MPH, RN — Nurse Executive & Healthcare Leader",
-  description:
-    "Nurse executive with 18+ years in healthcare. Director of Clinical Services at ICHS, Seattle. DNP candidate at University of Washington.",
+// Update this once roselineondeche.co.ke is live and set as the primary domain.
+const siteUrl = "https://roselineondeche.vercel.app";
+const title = "Roseline Buyeka, DNP, MPH, RN — Nurse Executive & Healthcare Leader";
+const description =
+  "Nurse executive with 18+ years in healthcare. Director of Clinical Services at ICHS, Seattle. DNP candidate at University of Washington.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: [
+    "Roseline Buyeka",
+    "Nurse Executive Seattle",
+    "Healthcare Leader",
+    "Director of Clinical Services ICHS",
+    "DNP University of Washington",
+  ],
+  alternates: { canonical: siteUrl },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "Roseline Buyeka",
+    type: "profile",
+    images: [{ url: `${siteUrl}/hero-ros.jpg`, width: 2848, height: 1600 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [`${siteUrl}/hero-ros.jpg`],
+  },
+  robots: { index: true, follow: true },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Roseline Buyeka",
+  jobTitle: "Director of Clinical Services",
+  url: siteUrl,
+  worksFor: { "@type": "Organization", name: "ICHS" },
+  email: "mailto:ondeche@gmail.com",
+  sameAs: ["https://linkedin.com/in/roseline-buyeka"],
 };
 
 export default function RoselinePage() {
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }} className="grain">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Nav />
       <HeroSection />
       <AboutSection />

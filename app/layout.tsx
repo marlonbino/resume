@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Script from "next/script";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -18,12 +17,6 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: "Marlon Isaiah Amunga — Software Developer",
-  description:
-    "Backend developer at Bitz, Nairobi. I build Django and FastAPI systems, set up async pipelines, and ship ML models that actually work in production.",
-};
 
 export default function RootLayout({
   children,
