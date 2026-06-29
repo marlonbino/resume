@@ -10,6 +10,7 @@ const NAV_LINKS: NavLink[] = [
   { id: "impact",     label: "Impact"     },
   { id: "experience", label: "Experience" },
   { id: "education",  label: "Education"  },
+  { id: "projects",   label: "Projects"   },
   { id: "contact",    label: "Contact"    },
 ];
 

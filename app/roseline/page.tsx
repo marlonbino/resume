@@ -6,6 +6,7 @@ import { AboutSection }      from "@/components/rb/AboutSection";
 import { ImpactSection }     from "@/components/rb/ImpactSection";
 import { ExperienceSection } from "@/components/rb/ExperienceSection";
 import { EducationSection }  from "@/components/rb/EducationSection";
+import { ProjectsSection }   from "@/components/rb/ProjectsSection";
 import { ContactSection }    from "@/components/rb/ContactSection";
 
 // Update this once roselineondeche.co.ke is live and set as the primary domain.
@@ -71,6 +72,7 @@ export default function RoselinePage() {
       <ImpactSection />
       <ExperienceSection />
       <EducationSection />
+      <ProjectsSection />
       <ContactSection />
     </div>
   );

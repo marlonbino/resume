@@ -298,7 +298,7 @@ export function ContactSection() {
         <h2 style={headingStyle}>Let&apos;s talk.</h2>
         <p style={subTextStyle}>
           Whether it&apos;s a speaking opportunity, collaboration, or just a conversation about
-          health equity — I&apos;m reachable.
+          population health and clinical systems leadership — I&apos;m reachable.
         </p>
       </Reveal>
 
@@ -337,7 +337,7 @@ export function ContactSection() {
               linkedin.com/in/roseline-buyeka
             </a>
 
-            <p style={locationStyle}>📍 Issaquah, WA</p>
+            <p style={locationStyle}>📍 Seattle, WA</p>
 
             <div style={availabilityRowStyle}>
               <PulseDot />

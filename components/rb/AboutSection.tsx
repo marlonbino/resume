@@ -12,7 +12,7 @@ export function AboutSection() {
           <div style={styles.imageCol}>
             <div style={styles.imageWrapper}>
               <Image
-                src="/about-ros.jpg"
+                src="/about-ros.jpeg"
                 alt="Roseline Buyeka"
                 fill
                 style={{ objectFit: "cover" }}
@@ -34,7 +34,7 @@ export function AboutSection() {
             <p style={styles.paragraph}>
               I'm appointed to the WA Maternal Mortality Review Panel, sit on the board of Mother Africa, and hold a DNP from the University of Washington.
             </p>
-            <p style={styles.location}>↳ Issaquah, WA · linkedin.com/in/roseline-buyeka</p>
+            <p style={styles.location}>↳ Seattle, WA · linkedin.com/in/roseline-buyeka</p>
           </div>
         </Reveal>
       </div>
