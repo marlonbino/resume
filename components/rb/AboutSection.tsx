@@ -15,7 +15,7 @@ export function AboutSection() {
                 src="/about-ros2.jpeg"
                 alt="Roseline Buyeka"
                 fill
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: "center top" }}
               />
             </div>
             <p style={styles.caption}>Healthcare leader · Seattle, WA</p>

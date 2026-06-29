@@ -59,7 +59,7 @@ export function HeroSection() {
         fill
         priority
         sizes="100vw"
-        style={{ objectFit: "cover", objectPosition: "center top", zIndex: 0 }}
+        style={{ objectFit: "cover", objectPosition: "35% top", zIndex: 0 }}
       />
 
       {/* ── Dark overlay ── */}
