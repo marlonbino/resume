@@ -16,7 +16,7 @@ const projects: Project[] = [
     label: "Consultancy · DNP Capstone",
     client: "State of Alaska Division of Public Health",
     title: "Tuberculosis Case Management Systems Initiative",
-    desc: "Led a systems-level initiative to strengthen tuberculosis case management and public health infrastructure across Alaska. Designed and implemented frameworks to improve TB detection, treatment adherence, and cross-agency coordination within the state's Division of Public Health.",
+    desc: "Led a systems-level initiative to strengthen tuberculosis case management and public health infrastructure with the State of Alaska Division of Public Health.",
     tags: ["Public Health Systems", "TB Case Management", "Policy Design", "Infrastructure Strengthening"],
     delay: 0,
   },
