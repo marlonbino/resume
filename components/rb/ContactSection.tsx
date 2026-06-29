@@ -297,7 +297,7 @@ export function ContactSection() {
         <p style={labelStyle}>Contact</p>
         <h2 style={headingStyle}>Let&apos;s talk.</h2>
         <p style={subTextStyle}>
-          Whether it&apos;s a speaking opportunity, collaboration, or just a conversation about
+          Whether it&apos;s a collaboration, or just a conversation about
           population health and clinical systems leadership — I&apos;m reachable.
         </p>
       </Reveal>
@@ -341,7 +341,7 @@ export function ContactSection() {
 
             <div style={availabilityRowStyle}>
               <PulseDot />
-              <span style={availabilityTextStyle}>Open to speaking, advisory &amp; leadership roles</span>
+              <span style={availabilityTextStyle}>Open to workforce development, consultancy &amp; research</span>
             </div>
           </div>
         </Reveal>
