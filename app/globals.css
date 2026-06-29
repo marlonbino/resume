@@ -310,3 +310,8 @@
 .step-card:hover .step-number { opacity: 0.28; }
 
 nextjs-portal { display: none !important; }
+
+/* ── Responsive helpers ── */
+@media (max-width: 1023px) {
+  .hide-mobile { display: none !important; }
+}
