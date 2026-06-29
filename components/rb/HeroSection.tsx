@@ -54,7 +54,7 @@ export function HeroSection() {
     >
       {/* ── Background image ── */}
       <Image
-        src="/hero-ros.jpg"
+        src="/hero-ros2.png"
         alt="Roseline Buyeka"
         fill
         priority

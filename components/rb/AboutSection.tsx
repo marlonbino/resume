@@ -12,7 +12,7 @@ export function AboutSection() {
           <div style={styles.imageCol}>
             <div style={styles.imageWrapper}>
               <Image
-                src="/about-ros.jpeg"
+                src="/about-ros2.jpeg"
                 alt="Roseline Buyeka"
                 fill
                 style={{ objectFit: "cover" }}
