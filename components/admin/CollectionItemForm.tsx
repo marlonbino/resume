@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { SectionDef } from '@/lib/admin-schema'
@@ -30,7 +29,7 @@ function deriveSlug(data: Record<string, unknown>): string {
       return generateSlug(data[c] as string)
     }
   }
-  return `item-${Date.now()}`
+  return ''
 }
 
 export default function CollectionItemForm({
@@ -40,40 +39,48 @@ export default function CollectionItemForm({
   isNew,
 }: CollectionItemFormProps) {
   const router = useRouter()
+  const [values, setValues] = useState<Record<string, unknown>>(initialData)
   const [slug, setSlug] = useState(initialSlug)
   const [slugEdited, setSlugEdited] = useState(!isNew)
+  const [saving, setSaving] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const { control, handleSubmit, watch, formState: { isSubmitting } } =
-    useForm<Record<string, unknown>>({
-      defaultValues: initialData,
+  function handleChange(key: string, value: unknown) {
+    setValues((prev) => {
+      const next = { ...prev, [key]: value }
+      // Auto-generate slug from content fields when creating a new item
+      if (isNew && !slugEdited) {
+        const derived = deriveSlug(next)
+        if (derived) setSlug(derived)
+      }
+      return next
     })
-
-  // Auto-generate slug from the first text field when creating
-  const watchedValues = watch()
-  if (isNew && !slugEdited) {
-    const derived = deriveSlug(watchedValues)
-    if (derived && derived !== slug) {
-      setSlug(derived)
-    }
   }
 
-  async function onSubmit(data: Record<string, unknown>) {
-    const finalSlug = slug || deriveSlug(data)
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const finalSlug = slug || deriveSlug(values)
     if (!finalSlug) {
-      toast.error('Could not determine a slug. Please fill in a title or heading.')
+      toast.error('Enter a title or heading so a slug can be generated.')
       return
     }
 
+    setSaving(true)
     try {
-      await saveCollectionItem(section.key, finalSlug, data)
-      toast.success(isNew ? 'Created!' : 'Saved!')
-      if (isNew) {
-        router.push(`/keystatic/c/${section.key}/${finalSlug}`)
+      const result = await saveCollectionItem(section.key, finalSlug, values)
+      if (result === 'no-change') {
+        toast.info('Nothing changed — no commit needed.')
+      } else {
+        toast.success(isNew ? 'Created!' : 'Saved!')
+        if (isNew) {
+          router.push(`/keystatic/c/${section.key}/${finalSlug}`)
+        }
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to save')
+    } finally {
+      setSaving(false)
     }
   }
 
@@ -91,23 +98,18 @@ export default function CollectionItemForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Slug field */}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Slug */}
       <div>
         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
           Slug
-          {isNew && (
-            <span className="text-slate-400 font-normal ml-2 text-xs">(auto-generated)</span>
-          )}
+          {isNew && <span className="text-slate-400 font-normal ml-2 text-xs">(auto-generated)</span>}
         </label>
         <input
           type="text"
           className="border border-slate-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full bg-white text-slate-900"
           value={slug}
-          onChange={(e) => {
-            setSlug(e.target.value)
-            setSlugEdited(true)
-          }}
+          onChange={(e) => { setSlug(e.target.value); setSlugEdited(true) }}
           placeholder="item-slug"
           required
         />
@@ -120,24 +122,25 @@ export default function CollectionItemForm({
             {field.label}
             {field.required && <span className="text-red-500 ml-1">*</span>}
           </label>
-          <Controller
-            name={field.key}
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <FieldInput field={field} value={value} onChange={onChange} />
-            )}
+          {field.description && (
+            <p className="text-xs text-slate-400 mb-1.5">{field.description}</p>
+          )}
+          <FieldInput
+            field={field}
+            value={values[field.key]}
+            onChange={(v) => handleChange(field.key, v)}
           />
         </div>
       ))}
 
-      {/* Action buttons */}
+      {/* Actions */}
       <div className="flex items-center justify-between pt-2">
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={saving}
           className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50 transition-colors"
         >
-          {isSubmitting ? 'Saving…' : isNew ? 'Create item' : 'Save changes'}
+          {saving ? 'Saving…' : isNew ? 'Create item' : 'Save changes'}
         </button>
 
         {!isNew && (

@@ -31,30 +31,40 @@ export async function readSingleton(sectionKey: string): Promise<Record<string, 
   return {}
 }
 
-// Save a singleton
+// Save a singleton — returns 'no-change' if content is identical
 export async function saveSingleton(
   sectionKey: string,
   data: Record<string, unknown>
-): Promise<void> {
+): Promise<'saved' | 'no-change'> {
   await assertAuth()
   const section = getSectionByKey(sectionKey)
   if (section.kind !== 'singleton') throw new Error(`${sectionKey} is not a singleton`)
 
   let sha: string | null = null
+  let existingContent: string | null = null
   try {
     const existing = await getFileContent(section.yamlPath)
     sha = existing.sha
+    existingContent = existing.content
   } catch {
     // File doesn't exist yet — create it
   }
 
-  const content = yaml.dump(data, { lineWidth: 120 })
+  const newContent = yaml.dump(data, { lineWidth: 120 })
+
+  // Only write if content actually changed
+  if (existingContent !== null) {
+    const existingNormalized = yaml.dump(yaml.load(existingContent), { lineWidth: 120 })
+    if (existingNormalized === newContent) return 'no-change'
+  }
+
   await putFileContent(
     section.yamlPath,
-    content,
+    newContent,
     sha,
-    `Update ${section.label} singleton via CMS`
+    `Update ${section.label} via CMS`
   )
+  return 'saved'
 }
 
 // List all items in a collection (returns array of {slug, ...fields})
@@ -107,12 +117,12 @@ export async function readCollectionItem(
   return { slug }
 }
 
-// Save a collection item (create or update)
+// Save a collection item — returns 'no-change' if content is identical
 export async function saveCollectionItem(
   sectionKey: string,
   slug: string,
   data: Record<string, unknown>
-): Promise<void> {
+): Promise<'saved' | 'no-change'> {
   await assertAuth()
   const section = getSectionByKey(sectionKey)
   if (section.kind !== 'collection') throw new Error(`${sectionKey} is not a collection`)
@@ -121,9 +131,11 @@ export async function saveCollectionItem(
   const filePath = `${section.collectionDir}/${slug}.yaml`
 
   let sha: string | null = null
+  let existingContent: string | null = null
   try {
     const existing = await getFileContent(filePath)
     sha = existing.sha
+    existingContent = existing.content
   } catch {
     // New file
   }
@@ -131,16 +143,23 @@ export async function saveCollectionItem(
   // Always include the slug field in the data
   const slugField = section.slugField ?? 'slug'
   const dataWithSlug = { [slugField]: slug, ...data }
+  const newContent = yaml.dump(dataWithSlug, { lineWidth: 120 })
 
-  const content = yaml.dump(dataWithSlug, { lineWidth: 120 })
+  // Only write if content actually changed
+  if (existingContent !== null) {
+    const existingNormalized = yaml.dump(yaml.load(existingContent), { lineWidth: 120 })
+    if (existingNormalized === newContent) return 'no-change'
+  }
+
   await putFileContent(
     filePath,
-    content,
+    newContent,
     sha,
     sha
       ? `Update ${section.label} item "${slug}" via CMS`
       : `Create ${section.label} item "${slug}" via CMS`
   )
+  return 'saved'
 }
 
 // Delete a collection item

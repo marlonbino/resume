@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm, Controller } from 'react-hook-form'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { SectionDef } from '@/lib/admin-schema'
 import { saveSingleton } from '@/app/keystatic/actions'
@@ -12,33 +12,45 @@ interface SingletonFormProps {
 }
 
 export default function SingletonForm({ section, initialData }: SingletonFormProps) {
-  const { control, handleSubmit, formState: { isSubmitting } } = useForm<Record<string, unknown>>({
-    defaultValues: initialData,
-  })
+  const [values, setValues] = useState<Record<string, unknown>>(initialData)
+  const [saving, setSaving] = useState(false)
 
-  async function onSubmit(data: Record<string, unknown>) {
+  function handleChange(key: string, value: unknown) {
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setSaving(true)
     try {
-      await saveSingleton(section.key, data)
-      toast.success('Saved!')
+      const result = await saveSingleton(section.key, values)
+      if (result === 'no-change') {
+        toast.info('Nothing changed — no commit needed.')
+      } else {
+        toast.success('Saved!')
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to save')
+    } finally {
+      setSaving(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {section.fields.map((field) => (
         <div key={field.key}>
           <label className="block text-sm font-semibold text-slate-700 mb-1.5">
             {field.label}
             {field.required && <span className="text-red-500 ml-1">*</span>}
           </label>
-          <Controller
-            name={field.key}
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <FieldInput field={field} value={value} onChange={onChange} />
-            )}
+          {field.description && (
+            <p className="text-xs text-slate-400 mb-1.5">{field.description}</p>
+          )}
+          <FieldInput
+            field={field}
+            value={values[field.key]}
+            onChange={(v) => handleChange(field.key, v)}
           />
         </div>
       ))}
@@ -46,10 +58,10 @@ export default function SingletonForm({ section, initialData }: SingletonFormPro
       <div className="pt-2">
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={saving}
           className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50 transition-colors"
         >
-          {isSubmitting ? 'Saving…' : 'Save changes'}
+          {saving ? 'Saving…' : 'Save changes'}
         </button>
       </div>
     </form>
