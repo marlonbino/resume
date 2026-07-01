@@ -13,6 +13,8 @@ export function proxy(request: NextRequest) {
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
     }
+    // Authenticated — serve keystatic as-is, skip host rewriting below
+    return NextResponse.next();
   }
 
   // Route roselineondeche.vercel.app to /roseline
