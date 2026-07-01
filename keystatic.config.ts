@@ -11,7 +11,7 @@ export default config({
   ui: {
     brand: { name: 'Resume CMS' },
     navigation: {
-      '✦ Roseline\'s Site': [
+      'Roseline — Nurse Portfolio': [
         'roseline_hero',
         'roseline_about',
         'roseline_contact',
@@ -20,7 +20,7 @@ export default config({
         'roseline_education',
         'roseline_projects',
       ],
-      '✦ Marlon\'s Site': [
+      'Marlon — Dev Portfolio': [
         'marlon_hero',
         'marlon_about',
         'marlon_contact',
@@ -36,7 +36,7 @@ export default config({
     // ── Roseline ──────────────────────────────────────────────────────────────
 
     roseline_hero: singleton({
-      label: '🏠 Hero — Opening Screen',
+      label: 'Hero — Opening Screen',
       path: 'content/roseline/hero',
       format: { data: 'yaml' },
       schema: {
@@ -53,7 +53,7 @@ export default config({
     }),
 
     roseline_about: singleton({
-      label: '👩🏾 About — Your Story',
+      label: 'About — Your Story',
       path: 'content/roseline/about',
       format: { data: 'yaml' },
       schema: {
@@ -79,7 +79,7 @@ export default config({
     }),
 
     roseline_contact: singleton({
-      label: '📬 Contact — Get In Touch',
+      label: 'Contact — Get In Touch',
       path: 'content/roseline/contact',
       format: { data: 'yaml' },
       schema: {
@@ -114,7 +114,7 @@ export default config({
     // ── Marlon ────────────────────────────────────────────────────────────────
 
     marlon_hero: singleton({
-      label: '🏠 Hero — Opening Screen',
+      label: 'Hero — Opening Screen',
       path: 'content/marlon/hero',
       format: { data: 'yaml' },
       schema: {
@@ -131,7 +131,7 @@ export default config({
     }),
 
     marlon_about: singleton({
-      label: '👤 About — Your Story',
+      label: 'About — Your Story',
       path: 'content/marlon/about',
       format: { data: 'yaml' },
       schema: {
@@ -153,7 +153,7 @@ export default config({
     }),
 
     marlon_contact: singleton({
-      label: '📬 Contact — Get In Touch',
+      label: 'Contact — Get In Touch',
       path: 'content/marlon/contact',
       format: { data: 'yaml' },
       schema: {
@@ -187,7 +187,7 @@ export default config({
     // ── Roseline ──────────────────────────────────────────────────────────────
 
     roseline_impact: collection({
-      label: '📊 Impact Numbers',
+      label: 'Impact Numbers',
       path: 'content/roseline/impact/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -217,7 +217,7 @@ export default config({
     }),
 
     roseline_experience: collection({
-      label: '💼 Work Experience',
+      label: 'Work Experience',
       path: 'content/roseline/experience/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -254,7 +254,7 @@ export default config({
     }),
 
     roseline_education: collection({
-      label: '🎓 Education',
+      label: 'Education',
       path: 'content/roseline/education/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -300,7 +300,7 @@ export default config({
     }),
 
     roseline_projects: collection({
-      label: '🗂️ Projects & Consultancy',
+      label: 'Projects & Consultancy',
       path: 'content/roseline/projects/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -338,7 +338,7 @@ export default config({
     // ── Marlon ────────────────────────────────────────────────────────────────
 
     marlon_steps: collection({
-      label: '🪜 How I Work — Steps',
+      label: 'How I Work — Steps',
       path: 'content/marlon/steps/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -362,7 +362,7 @@ export default config({
     }),
 
     marlon_expertise: collection({
-      label: '🧠 Areas of Expertise',
+      label: 'Areas of Expertise',
       path: 'content/marlon/expertise/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -392,7 +392,7 @@ export default config({
     }),
 
     marlon_experience: collection({
-      label: '💼 Work Experience',
+      label: 'Work Experience',
       path: 'content/marlon/experience/*',
       format: { data: 'yaml' },
       slugField: 'slug',
@@ -427,7 +427,7 @@ export default config({
     }),
 
     marlon_projects: collection({
-      label: '🚀 Projects',
+      label: 'Projects',
       path: 'content/marlon/projects/*',
       format: { data: 'yaml' },
       slugField: 'slug',
