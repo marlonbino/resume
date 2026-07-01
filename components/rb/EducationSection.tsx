@@ -101,9 +101,15 @@ const noteStyle: React.CSSProperties = {
   lineHeight: 1.55,
 };
 
+const innerStyle: React.CSSProperties = {
+  maxWidth: 1400,
+  margin: "0 auto",
+}
+
 export function EducationSection({ cards }: { cards: EducationCard[] }) {
   return (
     <section id="education" style={sectionStyle}>
+      <div style={innerStyle}>
       <Reveal>
         <p style={labelStyle}>Education</p>
         <h2 style={headingStyle}>Built over decades.</h2>
@@ -132,6 +138,7 @@ export function EducationSection({ cards }: { cards: EducationCard[] }) {
             </div>
           </Reveal>
         ))}
+      </div>
       </div>
     </section>
   );

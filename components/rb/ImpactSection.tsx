@@ -51,7 +51,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderImage: "linear-gradient(90deg, var(--teal), var(--teal-light), transparent) 1",
   },
   inner: {
-    maxWidth: 1200,
+    maxWidth: 1400,
     margin: "0 auto",
   },
   header: {

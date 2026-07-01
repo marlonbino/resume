@@ -58,7 +58,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderTop: "1px solid var(--border)",
   },
   inner: {
-    maxWidth: 1200,
+    maxWidth: 1400,
     margin: "0 auto",
   },
   header: {

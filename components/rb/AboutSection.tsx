@@ -50,7 +50,7 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "120px 48px",
   },
   inner: {
-    maxWidth: 1200,
+    maxWidth: 1400,
     margin: "0 auto",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
