@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 
 const heroImages = ["/hero-dev.jpg", "/hero-dev2.jpg"];
 
-export function HeroSection() {
+interface HeroProps { eyebrow: string; bio: string }
+
+export function HeroSection({ eyebrow, bio }: HeroProps) {
   const [loaded, setLoaded] = useState(false);
   const [heroImg] = useState(
     () => heroImages[Math.floor(Math.random() * heroImages.length)]
@@ -63,7 +65,7 @@ export function HeroSection() {
           color: "rgba(212,170,106,0.6)",
           marginBottom: 20,
         }}>
-          Software Developer · Nairobi
+          {eyebrow}
         </p>
 
         <h1 style={{
@@ -88,7 +90,7 @@ export function HeroSection() {
           maxWidth: 540,
           marginBottom: 40,
         }}>
-          I write Django and FastAPI, deal with async queues and messy databases, and fine-tune ML models when the work calls for it. I also do freelance — React, Next.js, whatever the project needs. Based in Nairobi.
+          {bio}
         </p>
 
         <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>

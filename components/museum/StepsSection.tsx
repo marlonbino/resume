@@ -1,25 +1,9 @@
 "use client";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-const steps = [
-  {
-    num: "01",
-    heading: "The backend first",
-    body: "I start with the API and work outward. Django or FastAPI depending on what the project needs — not on what's trendy.",
-  },
-  {
-    num: "02",
-    heading: "Async when it matters",
-    body: "If a task shouldn't block a request, it doesn't. Celery, RabbitMQ, Redis — I've set these up enough times to know where they break.",
-  },
-  {
-    num: "03",
-    heading: "ML when it's useful",
-    body: "Not every problem needs a model. When one actually helps, I'll fine-tune it, track the runs, and put it behind an endpoint that works.",
-  },
-];
+interface Step { heading: string; body: string }
 
-export function StepsSection() {
+export function StepsSection({ steps }: { steps: Step[] }) {
   return (
     <section
       style={{
@@ -38,8 +22,10 @@ export function StepsSection() {
           gap: 0,
         }}
       >
-        {steps.map((step, i) => (
-          <ScrollReveal key={step.num} delay={i * 140}>
+        {steps.map((step, i) => {
+          const num = String(i + 1).padStart(2, '0');
+          return (
+          <ScrollReveal key={i} delay={i * 140}>
             <div
               className="step-card"
               style={{
@@ -54,7 +40,7 @@ export function StepsSection() {
                 className="step-number"
                 style={{ position: "absolute", top: 12, right: 20 }}
               >
-                {step.num}
+                {num}
               </span>
 
               {/* Small label */}
@@ -69,7 +55,7 @@ export function StepsSection() {
                   opacity: 0.85,
                 }}
               >
-                {step.num}
+                {num}
               </p>
 
               {/* Heading */}
@@ -105,7 +91,8 @@ export function StepsSection() {
               </p>
             </div>
           </ScrollReveal>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

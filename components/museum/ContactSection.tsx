@@ -2,10 +2,17 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { useRef, useState } from "react";
 
-const WHATSAPP_NUMBER = "254799979067";
+interface ContactProps {
+  blurb: string;
+  email: string;
+  githubUrl: string;
+  huggingfaceUrl: string;
+  availability: string;
+  whatsappNumber: string;
+}
 
 // ── ContactForm ───────────────────────────────────────────────────────────────
-function ContactForm() {
+function ContactForm({ email, whatsappNumber }: { email: string; whatsappNumber: string }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [via, setVia] = useState<"email" | "whatsapp">("email");
@@ -36,11 +43,11 @@ function ContactForm() {
     const body = name.trim() ? `Hi Marlon, I'm ${name}.\n\n${message}` : message;
     if (via === "whatsapp") {
       const encoded = encodeURIComponent(body);
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, "_blank");
+      window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
     } else {
       const subject = encodeURIComponent("Message from portfolio");
       const encodedBody = encodeURIComponent(body);
-      window.location.href = `mailto:marlon.gmx1@gmail.com?subject=${subject}&body=${encodedBody}`;
+      window.location.href = `mailto:${email}?subject=${subject}&body=${encodedBody}`;
     }
   };
 
@@ -201,7 +208,7 @@ function Footer() {
   );
 }
 
-export function ContactSection() {
+export function ContactSection({ blurb, email, githubUrl, huggingfaceUrl, availability, whatsappNumber }: ContactProps) {
   return (
     <section id="contact" style={{ padding: "120px 48px 80px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -228,10 +235,10 @@ export function ContactSection() {
           alignItems: "start",
         }}>
           <ScrollReveal direction="left">
-            <LeftPanel />
+            <LeftPanel blurb={blurb} email={email} githubUrl={githubUrl} huggingfaceUrl={huggingfaceUrl} availability={availability} />
           </ScrollReveal>
           <ScrollReveal direction="right" delay={150}>
-            <ContactForm />
+            <ContactForm email={email} whatsappNumber={whatsappNumber} />
           </ScrollReveal>
         </div>
 
@@ -242,7 +249,7 @@ export function ContactSection() {
 }
 
 // ── Left panel ────────────────────────────────────────────────────────────────
-function LeftPanel() {
+function LeftPanel({ blurb, email, githubUrl, huggingfaceUrl, availability }: Omit<ContactProps, 'whatsappNumber'>) {
   return (
     <div>
       <p style={{
@@ -252,11 +259,11 @@ function LeftPanel() {
         lineHeight: 1.85,
         marginBottom: 36,
       }}>
-        I&apos;m at Bitz by day, but I pick up freelance work and interesting side projects when they come up. Drop me a message — I&apos;ll get back to you.
+        {blurb}
       </p>
 
       <a
-        href="mailto:marlon.gmx1@gmail.com"
+        href={`mailto:${email}`}
         style={{
           display: "block",
           fontFamily: "var(--font-serif), serif",
@@ -272,13 +279,13 @@ function LeftPanel() {
         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-primary)")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--gold-light)")}
       >
-        marlon.gmx1@gmail.com
+        {email}
       </a>
 
       <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: 40 }}>
         {[
-          { label: "GitHub", href: "https://github.com/marlonbino" },
-          { label: "Hugging Face", href: "https://huggingface.co/marlonbino" },
+          { label: "GitHub", href: githubUrl },
+          { label: "Hugging Face", href: huggingfaceUrl },
         ].map((link) => (
           <a
             key={link.label}
@@ -323,7 +330,7 @@ function LeftPanel() {
           letterSpacing: "0.14em", textTransform: "uppercase",
           color: "#4ade80",
         }}>
-          Open to work
+          {availability}
         </span>
       </div>
     </div>

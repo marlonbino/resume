@@ -2,46 +2,9 @@
 import { useState } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-const rooms = [
-  {
-    num: "01",
-    title: "Backend Systems",
-    desc: "Django and FastAPI services that age well — clear contracts, honest errors, observability baked in from day one.",
-    tags: ["Python", "Django", "FastAPI", "REST"],
-  },
-  {
-    num: "02",
-    title: "Async & Event-Driven",
-    desc: "Long-running work pushed off the request path — task queues, brokers, and idempotent workers that keep producing under load.",
-    tags: ["Celery", "RabbitMQ", "Redis", "Cron"],
-  },
-  {
-    num: "03",
-    title: "Data & Storage",
-    desc: "PostgreSQL as the source of truth, Redis for the hot path. Schemas designed for the questions a product will actually ask.",
-    tags: ["PostgreSQL", "Redis", "SQL", "Migrations"],
-  },
-  {
-    num: "04",
-    title: "Machine Learning",
-    desc: "Fine-tuned transformers shipped to Hugging Face with MLflow-tracked runs — models that live behind APIs, not in notebooks.",
-    tags: ["PyTorch", "Transformers", "MLflow", "Hugging Face"],
-  },
-  {
-    num: "05",
-    title: "Cloud & DevOps",
-    desc: "Dockerised services on AWS with small, reversible deployments — the boring discipline that lets the interesting work ship.",
-    tags: ["AWS", "Docker", "Compose", "CI/CD"],
-  },
-  {
-    num: "06",
-    title: "Frontend Craft",
-    desc: "React, Next.js and TypeScript when the backend needs a face — interfaces with the pacing of physical objects.",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind"],
-  },
-];
+interface Room { title: string; desc: string; tags: readonly string[] }
 
-function RoomCard({ room, delay }: { room: typeof rooms[0]; delay: number }) {
+function RoomCard({ room, num, delay }: { room: Room; num: string; delay: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -72,7 +35,7 @@ function RoomCard({ room, delay }: { room: typeof rooms[0]; delay: number }) {
           lineHeight: 1,
           transition: "color 0.3s",
           userSelect: "none",
-        }}>{room.num}</p>
+        }}>{num}</p>
 
         <h3 style={{
           fontFamily: "var(--font-serif), serif",
@@ -129,7 +92,7 @@ function RoomCard({ room, delay }: { room: typeof rooms[0]; delay: number }) {
   );
 }
 
-export function ExpertiseSection() {
+export function ExpertiseSection({ rooms }: { rooms: Room[] }) {
   return (
     <section
       id="expertise"
@@ -171,7 +134,7 @@ export function ExpertiseSection() {
           border: "1px solid var(--border)",
         }}>
           {rooms.map((room, i) => (
-            <RoomCard key={room.num} room={room} delay={i * 60} />
+            <RoomCard key={i} room={room} num={String(i + 1).padStart(2, '0')} delay={i * 60} />
           ))}
         </div>
       </div>

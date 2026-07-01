@@ -1,0 +1,14 @@
+slug: bitz
+order: 1
+period: "2025 — Present"
+org: "Bitz IT Consulting"
+role: "Software Developer · Nairobi"
+desc: "Backend developer working across multiple health and enterprise platforms. Django, FastAPI, async task queues, PostgreSQL — building the parts that users never see but can't do without."
+tags:
+  - Django
+  - FastAPI
+  - Celery
+  - RabbitMQ
+  - PostgreSQL
+  - Redis
+  - Docker

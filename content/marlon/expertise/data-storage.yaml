@@ -1,0 +1,9 @@
+slug: data-storage
+order: 3
+title: "Data & Storage"
+desc: "PostgreSQL as the source of truth, Redis for the hot path. Schemas designed for the questions a product will actually ask."
+tags:
+  - PostgreSQL
+  - Redis
+  - SQL
+  - Migrations

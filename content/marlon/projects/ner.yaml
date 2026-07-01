@@ -1,0 +1,16 @@
+slug: ner
+order: 3
+period: "2025"
+role: "ML"
+title: "NER DistilBERT"
+subtitle: "Named Entity Recognition"
+image: "/project-ner2.jpg"
+desc: "Fine-tuned DistilBERT on NER tasks, tracked every experiment with MLflow, then shipped it to Hugging Face so anyone can use it. Has a FastAPI endpoint for direct integration."
+linkLabel: "ner-distilbert"
+linkHref: "https://huggingface.co/marlonbino/ner-distilbert-base-cased"
+linkType: "Model"
+tags:
+  - PyTorch
+  - Transformers
+  - MLflow
+  - FastAPI

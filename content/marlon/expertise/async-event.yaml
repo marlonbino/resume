@@ -1,0 +1,9 @@
+slug: async-event
+order: 2
+title: "Async & Event-Driven"
+desc: "Long-running work pushed off the request path — task queues, brokers, and idempotent workers that keep producing under load."
+tags:
+  - Celery
+  - RabbitMQ
+  - Redis
+  - Cron

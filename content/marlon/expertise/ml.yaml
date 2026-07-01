@@ -1,0 +1,9 @@
+slug: ml
+order: 4
+title: "Machine Learning"
+desc: "Fine-tuned transformers shipped to Hugging Face with MLflow-tracked runs — models that live behind APIs, not in notebooks."
+tags:
+  - PyTorch
+  - Transformers
+  - MLflow
+  - Hugging Face

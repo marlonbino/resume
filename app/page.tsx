@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { MuseumNav } from "@/components/museum/MuseumNav";
-import { HeroSection } from "@/components/museum/HeroSection";
-import { AboutSection } from "@/components/museum/AboutSection";
-import { ExpertiseSection } from "@/components/museum/ExpertiseSection";
-import { ProjectsSection } from "@/components/museum/ProjectsSection";
+import { MuseumNav }         from "@/components/museum/MuseumNav";
+import { HeroSection }       from "@/components/museum/HeroSection";
+import { AboutSection }      from "@/components/museum/AboutSection";
+import { ExpertiseSection }  from "@/components/museum/ExpertiseSection";
+import { ProjectsSection }   from "@/components/museum/ProjectsSection";
 import { ExperienceSection } from "@/components/museum/ExperienceSection";
-import { ContactSection } from "@/components/museum/ContactSection";
+import { ContactSection }    from "@/components/museum/ContactSection";
 import { SectionTransition } from "@/components/museum/SectionTransition";
-import { LoadingScreen } from "@/components/museum/LoadingScreen";
+import { LoadingScreen }     from "@/components/museum/LoadingScreen";
 import { ScrollProgressRing } from "@/components/museum/ScrollProgressRing";
-import { StepsSection } from "@/components/museum/StepsSection";
+import { StepsSection }      from "@/components/museum/StepsSection";
+import { reader }            from "@/lib/keystatic-reader";
 
 const siteUrl = "https://marlonamunga.vercel.app";
 const title = "Marlon Isaiah Amunga — Software Developer";
@@ -56,7 +57,22 @@ const personJsonLd = {
   sameAs: ["https://github.com/marlonbino"],
 };
 
-export default function Home() {
+export default async function Home() {
+  const [hero, about, contact, stepsRaw, expertiseRaw, expRaw, projRaw] = await Promise.all([
+    reader.singletons.marlon_hero.read(),
+    reader.singletons.marlon_about.read(),
+    reader.singletons.marlon_contact.read(),
+    reader.collections.marlon_steps.all(),
+    reader.collections.marlon_expertise.all(),
+    reader.collections.marlon_experience.all(),
+    reader.collections.marlon_projects.all(),
+  ]);
+
+  const steps     = stepsRaw.sort((a, b) => a.entry.order - b.entry.order).map(s => s.entry);
+  const rooms     = expertiseRaw.sort((a, b) => a.entry.order - b.entry.order).map(r => r.entry);
+  const experience = expRaw.sort((a, b) => a.entry.order - b.entry.order).map(e => e.entry);
+  const projects  = projRaw.sort((a, b) => a.entry.order - b.entry.order).map(p => p.entry);
+
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }} className="grain">
       <script
@@ -67,31 +83,37 @@ export default function Home() {
       <ScrollProgressRing />
       <MuseumNav />
 
-      {/* Hero — no wipe, it's the entry point */}
-      <HeroSection />
+      <HeroSection eyebrow={hero!.eyebrow} bio={hero!.bio} />
 
       <SectionTransition curtainColor="var(--bg)">
-        <AboutSection />
+        <AboutSection heading={about!.heading} bio={about!.bio} location={about!.location} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg)">
-        <StepsSection />
+        <StepsSection steps={steps} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg-2)">
-        <ExpertiseSection />
+        <ExpertiseSection rooms={rooms} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg)">
-        <ProjectsSection />
+        <ProjectsSection projects={projects} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg-2)">
-        <ExperienceSection />
+        <ExperienceSection items={experience} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg)">
-        <ContactSection />
+        <ContactSection
+          blurb={contact!.blurb}
+          email={contact!.email}
+          githubUrl={contact!.githubUrl}
+          huggingfaceUrl={contact!.huggingfaceUrl}
+          availability={contact!.availability}
+          whatsappNumber={contact!.whatsappNumber}
+        />
       </SectionTransition>
     </div>
   );

@@ -3,45 +3,13 @@
 import { Reveal } from "@/components/rb/Reveal";
 
 interface EducationCard {
-  accent: string;
+  accentColor: string;
   period: string;
   degree: string;
   focus: string;
   school: string;
   note?: string;
 }
-
-const cards: EducationCard[] = [
-  {
-    accent: "var(--gold)",
-    period: "Completed 2026",
-    degree: "Doctor of Nursing Practice (DNP)",
-    focus: "Population Health & Systems Leadership",
-    school: "University of Washington",
-    note: "Judith G. Whitaker Scholarship — Nurses Educational Fund 2025–26. Capstone with the State of Alaska Division of Public Health on tuberculosis case management.",
-  },
-  {
-    accent: "var(--teal)",
-    period: "Completed 2023",
-    degree: "Master of Science in Nursing (MSN)",
-    focus: "Clinical Systems Leadership",
-    school: "University of Arizona",
-  },
-  {
-    accent: "var(--teal)",
-    period: "Completed 2021",
-    degree: "Master of Public Health (MPH)",
-    focus: "Public Health",
-    school: "Moi University",
-  },
-  {
-    accent: "var(--teal-light)",
-    period: "Completed 2020",
-    degree: "Bachelor of Science in Nursing (BSN)",
-    focus: "Nursing",
-    school: "University of Nairobi",
-  },
-];
 
 const sectionStyle: React.CSSProperties = {
   padding: "120px 48px",
@@ -133,7 +101,7 @@ const noteStyle: React.CSSProperties = {
   lineHeight: 1.55,
 };
 
-export function EducationSection() {
+export function EducationSection({ cards }: { cards: EducationCard[] }) {
   return (
     <section id="education" style={sectionStyle}>
       <Reveal>
@@ -145,7 +113,7 @@ export function EducationSection() {
         {cards.map((card, i) => (
           <Reveal key={i} delay={i * 120}>
             <div
-              style={cardStyle(card.accent)}
+              style={cardStyle(card.accentColor)}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
                 (e.currentTarget as HTMLDivElement).style.boxShadow =

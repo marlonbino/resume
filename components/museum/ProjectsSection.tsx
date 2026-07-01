@@ -3,64 +3,7 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-// ── data ──────────────────────────────────────────────────────────────────────
-const projects: Project[] = [
-  {
-    num: "01",
-    period: "2025 — Present",
-    role: "Backend Developer",
-    title: "OPENHMIS",
-    subtitle: "Open Health Management Information System",
-    image: "/project-openhmis.jpg",
-    desc: "Building the backend for an open-source health system used in Kenyan public facilities. Django and FastAPI handle the API layer, Celery and RabbitMQ process the async work, PostgreSQL and Redis store everything. All running in Docker.",
-    linkLabel: "BITZ-IT-Consulting-LTD/OPENHMIS",
-    linkHref: "https://github.com/BITZ-IT-Consulting-LTD/OPENHMIS",
-    linkType: "Repository",
-    tags: ["Django", "FastAPI", "Celery", "RabbitMQ", "PostgreSQL", "Redis", "Docker"],
-  },
-  {
-    num: "02",
-    period: "2024",
-    role: "Full-stack",
-    title: "Elyon Driving",
-    subtitle: "School Management System",
-    image: "/project-elyon.jpg",
-    desc: "A full management system for a driving school — handles student sign-ups, instructor schedules, lesson tracking, and progress. Built to replace the WhatsApp groups and paper registers they were using before.",
-    linkLabel: "elyon-driving",
-    linkHref: "https://github.com/marlonbino/elyon-driving",
-    linkType: "Repository",
-    tags: ["Django", "PostgreSQL", "Docker", "React"],
-  },
-  {
-    num: "03",
-    period: "2025",
-    role: "ML",
-    title: "NER DistilBERT",
-    subtitle: "Named Entity Recognition",
-    image: "/project-ner2.jpg",
-    desc: "Fine-tuned DistilBERT on NER tasks, tracked every experiment with MLflow, then shipped it to Hugging Face so anyone can use it. Has a FastAPI endpoint for direct integration.",
-    linkLabel: "ner-distilbert",
-    linkHref: "https://huggingface.co/marlonbino/ner-distilbert-base-cased",
-    linkType: "Model",
-    tags: ["PyTorch", "Transformers", "MLflow", "FastAPI"],
-  },
-  {
-    num: "04",
-    period: "2025",
-    role: "ML",
-    title: "Opus-MT SW→EN",
-    subtitle: "Swahili to English Translation",
-    image: "/project-translate.jpg",
-    desc: "Fine-tuned a translation model that converts Swahili to English. Ran seven training iterations tracked in MLflow before publishing on Hugging Face. Meant to be useful for East African developers who need it.",
-    linkLabel: "opus-mt-sw-en",
-    linkHref: "https://huggingface.co/marlonbino/opus-mt-sw-en-finetuned",
-    linkType: "Model",
-    tags: ["PyTorch", "Opus-MT", "MLflow", "Hugging Face"],
-  },
-];
-
 interface Project {
-  num: string;
   period: string;
   role: string;
   title: string;
@@ -70,7 +13,7 @@ interface Project {
   linkLabel: string;
   linkHref: string;
   linkType: string;
-  tags: string[];
+  tags: readonly string[];
 }
 
 // ── SectionHeader ─────────────────────────────────────────────────────────────
@@ -104,6 +47,7 @@ function SectionHeader() {
 
 // ── SlideArea ─────────────────────────────────────────────────────────────────
 interface SlideAreaProps {
+  projects: Project[];
   current: Project;
   active: number;
   paused: boolean;
@@ -112,7 +56,7 @@ interface SlideAreaProps {
   onTogglePause: () => void;
 }
 
-function SlideArea({ current, active, paused, total, onDotClick, onTogglePause }: SlideAreaProps) {
+function SlideArea({ projects, current, active, paused, total, onDotClick, onTogglePause }: SlideAreaProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -170,7 +114,7 @@ function SlideArea({ current, active, paused, total, onDotClick, onTogglePause }
             userSelect: "none",
             pointerEvents: "none",
           }}>
-            {current.num}
+            {String(active + 1).padStart(2, '0')}
           </span>
         </div>
 
@@ -266,11 +210,13 @@ function SlideArea({ current, active, paused, total, onDotClick, onTogglePause }
       }}>
         {/* Numbered dots */}
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          {projects.map((p, i) => (
+          {projects.map((p, i) => {
+            const pNum = String(i + 1).padStart(2, '0');
+            return (
             <button
-              key={p.num}
+              key={i}
               onClick={() => onDotClick(i)}
-              aria-label={`Go to project ${p.num}`}
+              aria-label={`Go to project ${pNum}`}
               style={{
                 background: "none",
                 border: "none",
@@ -297,10 +243,11 @@ function SlideArea({ current, active, paused, total, onDotClick, onTogglePause }
                 color: i === active ? "var(--gold-light)" : "var(--text-dim)",
                 transition: "color 0.2s",
               }}>
-                {p.num}
+                {pNum}
               </span>
             </button>
-          ))}
+            );
+          })}
         </div>
 
         {/* Pause / play */}
@@ -335,20 +282,20 @@ function SlideArea({ current, active, paused, total, onDotClick, onTogglePause }
 }
 
 // ── main component ────────────────────────────────────────────────────────────
-export function ProjectsSection() {
+export function ProjectsSection({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const advance = useCallback(() => {
     setActive((prev) => (prev + 1) % projects.length);
-  }, []);
+  }, [projects.length]);
 
   useEffect(() => {
     if (paused || projects.length === 0) return;
     timerRef.current = setInterval(advance, 4000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [paused, advance]);
+  }, [paused, advance, projects.length]);
 
   if (projects.length === 0) return null;
 
@@ -361,6 +308,7 @@ export function ProjectsSection() {
           <SectionHeader />
         </ScrollReveal>
         <SlideArea
+          projects={projects}
           current={current}
           active={active}
           paused={paused}

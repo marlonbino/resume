@@ -1,0 +1,19 @@
+slug: openhmis
+order: 1
+period: "2025 — Present"
+role: "Backend Developer"
+title: "OPENHMIS"
+subtitle: "Open Health Management Information System"
+image: "/project-openhmis.jpg"
+desc: "Building the backend for an open-source health system used in Kenyan public facilities. Django and FastAPI handle the API layer, Celery and RabbitMQ process the async work, PostgreSQL and Redis store everything. All running in Docker."
+linkLabel: "BITZ-IT-Consulting-LTD/OPENHMIS"
+linkHref: "https://github.com/BITZ-IT-Consulting-LTD/OPENHMIS"
+linkType: "Repository"
+tags:
+  - Django
+  - FastAPI
+  - Celery
+  - RabbitMQ
+  - PostgreSQL
+  - Redis
+  - Docker

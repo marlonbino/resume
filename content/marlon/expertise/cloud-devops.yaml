@@ -1,0 +1,9 @@
+slug: cloud-devops
+order: 5
+title: "Cloud & DevOps"
+desc: "Dockerised services on AWS with small, reversible deployments — the boring discipline that lets the interesting work ship."
+tags:
+  - AWS
+  - Docker
+  - Compose
+  - CI/CD

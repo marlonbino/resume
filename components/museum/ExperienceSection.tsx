@@ -1,31 +1,9 @@
 "use client";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-const timeline = [
-  {
-    period: "2025 — Present",
-    org: "Bitz IT Consulting",
-    role: "Software Developer · Nairobi",
-    desc: "Backend developer working across multiple health and enterprise platforms. Django, FastAPI, async task queues, PostgreSQL — building the parts that users never see but can't do without.",
-    tags: ["Django", "FastAPI", "Celery", "RabbitMQ", "PostgreSQL", "Redis", "Docker"],
-  },
-  {
-    period: "2021 — 2025",
-    org: "Independent",
-    role: "Freelance Developer · Remote",
-    desc: "Took on client work as a Next.js developer — landing pages, dashboards, small web apps. Kept things simple and shipped on time.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind"],
-  },
-  {
-    period: "2021 — 2025",
-    org: "KCA University",
-    role: "BSc. Software Development · Nairobi",
-    desc: "Studied software development with a focus on systems and machine learning. That's where the interest in backend and ML started.",
-    tags: ["Python", "ML", "Systems", "Algorithms"],
-  },
-];
+interface TimelineItem { period: string; org: string; role: string; desc: string; tags: readonly string[] }
 
-export function ExperienceSection() {
+export function ExperienceSection({ items }: { items: TimelineItem[] }) {
   return (
     <section id="experience" style={{ padding: "120px 48px", background: "var(--bg-2)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -57,7 +35,7 @@ export function ExperienceSection() {
           }} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: 56 }}>
-            {timeline.map((item, i) => (
+            {items.map((item, i) => (
               <ScrollReveal key={item.org} delay={i * 100}>
                 <div style={{ paddingLeft: 40, position: "relative" }}>
                   {/* Dot */}

@@ -1,0 +1,16 @@
+slug: opus-mt
+order: 4
+period: "2025"
+role: "ML"
+title: "Opus-MT SW→EN"
+subtitle: "Swahili to English Translation"
+image: "/project-translate.jpg"
+desc: "Fine-tuned a translation model that converts Swahili to English. Ran seven training iterations tracked in MLflow before publishing on Hugging Face. Meant to be useful for East African developers who need it."
+linkLabel: "opus-mt-sw-en"
+linkHref: "https://huggingface.co/marlonbino/opus-mt-sw-en-finetuned"
+linkType: "Model"
+tags:
+  - PyTorch
+  - Opus-MT
+  - MLflow
+  - Hugging Face

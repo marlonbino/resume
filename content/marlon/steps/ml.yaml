@@ -1,0 +1,4 @@
+slug: ml
+order: 3
+heading: "ML when it's useful"
+body: "Not every problem needs a model. When one actually helps, I'll fine-tune it, track the runs, and put it behind an endpoint that works."

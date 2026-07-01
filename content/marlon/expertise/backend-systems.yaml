@@ -1,0 +1,9 @@
+slug: backend-systems
+order: 1
+title: "Backend Systems"
+desc: "Django and FastAPI services that age well — clear contracts, honest errors, observability baked in from day one."
+tags:
+  - Python
+  - Django
+  - FastAPI
+  - REST

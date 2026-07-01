@@ -3,40 +3,14 @@
 import { Reveal } from "@/components/rb/Reveal";
 
 interface CardData {
-  num: string;
+  displayNum: string;
   title: string;
   desc: string;
-  delay: number;
 }
 
-const cards: CardData[] = [
-  {
-    num: "30%",
-    title: "Transition of Care scale-up",
-    desc: "Scaled TOC services for high-risk patients by 30% and increased program reimbursement by 26% in 2025.",
-    delay: 0,
-  },
-  {
-    num: "33%",
-    title: "Diabetes care expansion",
-    desc: "Expanded Diabetes Self-Management Education by 33%, strengthening chronic disease management across 5 sites.",
-    delay: 100,
-  },
-  {
-    num: "40%+",
-    title: "ED follow-up outreach",
-    desc: "Implemented an ED discharge follow-up program for patients 65+, increasing outreach by over 40% within two months.",
-    delay: 200,
-  },
-  {
-    num: "100%",
-    title: "Regulatory compliance",
-    desc: "Achieved 100% compliance in AAAHC accreditation and the 2025 CHPW Annual Care Management Audit.",
-    delay: 300,
-  },
-];
+interface ImpactProps { cards: CardData[] }
 
-export function ImpactSection() {
+export function ImpactSection({ cards }: ImpactProps) {
   return (
     <section id="impact" style={styles.section}>
       <div style={styles.inner}>
@@ -48,8 +22,8 @@ export function ImpactSection() {
         </Reveal>
 
         <div style={styles.grid}>
-          {cards.map((card) => (
-            <Reveal key={card.num} direction="up" delay={card.delay}>
+          {cards.map((card, i) => (
+            <Reveal key={card.displayNum} direction="up" delay={i * 100}>
               <ImpactCard {...card} />
             </Reveal>
           ))}
@@ -59,10 +33,10 @@ export function ImpactSection() {
   );
 }
 
-function ImpactCard({ num, title, desc }: Omit<CardData, "delay">) {
+function ImpactCard({ displayNum, title, desc }: CardData) {
   return (
     <div style={styles.card}>
-      <span style={styles.cardNum}>{num}</span>
+      <span style={styles.cardNum}>{displayNum}</span>
       <h3 style={styles.cardTitle}>{title}</h3>
       <p style={styles.cardDesc}>{desc}</p>
     </div>

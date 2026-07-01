@@ -2,7 +2,9 @@
 import Image from "next/image";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-export function AboutSection() {
+interface AboutProps { heading: string; bio: string; location: string }
+
+export function AboutSection({ heading, bio, location }: AboutProps) {
   return (
     <section
       id="about"
@@ -80,7 +82,7 @@ export function AboutSection() {
               color: "var(--text-primary)",
               marginBottom: 28,
             }}>
-              Full-stack leaning backend — Django, FastAPI, React. I take the work wherever it needs to go.
+              {heading}
             </h2>
 
             <div className="hairline" style={{ marginBottom: 28 }} />
@@ -93,7 +95,7 @@ export function AboutSection() {
               marginBottom: 32,
               fontWeight: 400,
             }}>
-              I&apos;ve been writing code since 2021 and I still enjoy it. I like backends that are boring in the best way — clear, honest, easy to hand off. The ML side is something I picked up along the way and kept because it&apos;s actually useful.
+              {bio}
             </p>
 
             <p style={{
@@ -102,7 +104,7 @@ export function AboutSection() {
               color: "var(--text-muted)",
               letterSpacing: "0.08em",
             }}>
-              ↳ Nairobi · Kenya
+              {location}
             </p>
           </div>
         </ScrollReveal>

@@ -1,0 +1,4 @@
+slug: async
+order: 2
+heading: "Async when it matters"
+body: "If a task shouldn't block a request, it doesn't. Celery, RabbitMQ, Redis — I've set these up enough times to know where they break."

@@ -38,7 +38,9 @@ const vignetteStyle: React.CSSProperties = {
 };
 
 // ─── HeroSection ─────────────────────────────────────────────────────────────
-export function HeroSection() {
+interface HeroProps { eyebrow: string; bio: string }
+
+export function HeroSection({ eyebrow, bio }: HeroProps) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export function HeroSection() {
       <div style={vignetteStyle} />
 
       {/* ── Hero content ── */}
-      <HeroContent loaded={loaded} />
+      <HeroContent loaded={loaded} eyebrow={eyebrow} bio={bio} />
 
       {/* ── Scroll hint ── */}
       <ScrollHint />
@@ -81,7 +83,7 @@ export function HeroSection() {
 }
 
 // ─── HeroContent ─────────────────────────────────────────────────────────────
-function HeroContent({ loaded }: { loaded: boolean }) {
+function HeroContent({ loaded, eyebrow, bio }: { loaded: boolean; eyebrow: string; bio: string }) {
   const base: React.CSSProperties = {
     opacity:    loaded ? 1 : 0,
     transition: "opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1)",
@@ -102,7 +104,7 @@ function HeroContent({ loaded }: { loaded: boolean }) {
     }}>
       {/* Eyebrow */}
       <p className="section-label" style={{ ...rise(0.05), marginBottom: 20 }}>
-        DNP · MPH · MSN · BSN · RN — Seattle, WA
+        {eyebrow}
       </p>
 
       {/* Name block */}
@@ -145,8 +147,7 @@ function HeroContent({ loaded }: { loaded: boolean }) {
         maxWidth:     480,
         marginBottom: 36,
       }}>
-        18 years in healthcare. Right now I&rsquo;m Director of Clinical Services at ICHS
-        in Seattle, working on what equitable care actually looks like in practice.
+        {bio}
       </p>
 
       {/* CTA row */}

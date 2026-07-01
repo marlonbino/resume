@@ -3,7 +3,14 @@
 import { forwardRef, useState, useRef } from "react";
 import { Reveal } from "@/components/rb/Reveal";
 
-const WHATSAPP_NUMBER = "14255245066";
+interface ContactProps {
+  email: string;
+  linkedinUrl: string;
+  location: string;
+  availability: string;
+  whatsappNumber: string;
+  introParagraph: string;
+}
 
 // ── Styles ──────────────────────────────────────────────────────────────────
 
@@ -263,7 +270,7 @@ const Field = forwardRef<
 });
 
 // ── Main component ──────────────────────────────────────────────────────────
-export function ContactSection() {
+export function ContactSection({ email, linkedinUrl, location, availability, whatsappNumber, introParagraph }: ContactProps) {
   const [btnHover, setBtnHover] = useState(false);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
@@ -282,11 +289,11 @@ export function ContactSection() {
 
     if (via === "whatsapp") {
       const encoded = encodeURIComponent(body);
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, "_blank");
+      window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
     } else {
       const subject = encodeURIComponent("Message from your site");
       const encodedBody = encodeURIComponent(body);
-      window.location.href = `mailto:ondeche@gmail.com?subject=${subject}&body=${encodedBody}`;
+      window.location.href = `mailto:${email}?subject=${subject}&body=${encodedBody}`;
     }
   };
 
@@ -296,10 +303,7 @@ export function ContactSection() {
       <Reveal>
         <p style={labelStyle}>Contact</p>
         <h2 style={headingStyle}>Let&apos;s talk.</h2>
-        <p style={subTextStyle}>
-          Whether it&apos;s a consultancy enquiry, collaboration, or just a conversation about
-          population health and clinical systems leadership — I&apos;m reachable.
-        </p>
+        <p style={subTextStyle}>{introParagraph}</p>
       </Reveal>
 
       {/* Two-column grid */}
@@ -309,7 +313,7 @@ export function ContactSection() {
           <div>
             <p style={infoLabelStyle}>Email</p>
             <a
-              href="mailto:ondeche@gmail.com"
+              href={`mailto:${email}`}
               style={emailLinkStyle}
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLAnchorElement).style.color = "var(--teal-light)")
@@ -318,12 +322,12 @@ export function ContactSection() {
                 ((e.currentTarget as HTMLAnchorElement).style.color = "var(--teal)")
               }
             >
-              ondeche@gmail.com
+              {email}
             </a>
 
             <p style={infoLabelStyle}>LinkedIn</p>
             <a
-              href="https://linkedin.com/in/roseline-buyeka"
+              href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={linkedInLinkStyle}
@@ -334,14 +338,14 @@ export function ContactSection() {
                 ((e.currentTarget as HTMLAnchorElement).style.color = "var(--teal-light)")
               }
             >
-              linkedin.com/in/roseline-buyeka
+              {linkedinUrl.replace("https://", "")}
             </a>
 
-            <p style={locationStyle}>📍 Seattle, WA</p>
+            <p style={locationStyle}>{location}</p>
 
             <div style={availabilityRowStyle}>
               <PulseDot />
-              <span style={availabilityTextStyle}>Open to workforce development, consultancy &amp; research</span>
+              <span style={availabilityTextStyle}>{availability}</span>
             </div>
           </div>
         </Reveal>

@@ -1,0 +1,4 @@
+slug: backend-first
+order: 1
+heading: "The backend first"
+body: "I start with the API and work outward. Django or FastAPI depending on what the project needs — not on what's trendy."

@@ -7,30 +7,10 @@ interface Project {
   client: string;
   title: string;
   desc: string;
-  tags: string[];
-  delay: number;
+  tags: readonly string[];
 }
 
-const projects: Project[] = [
-  {
-    label: "Consultancy · DNP Capstone",
-    client: "State of Alaska Division of Public Health",
-    title: "Tuberculosis Case Management Systems Initiative",
-    desc: "Led a systems-level initiative to strengthen tuberculosis case management and public health infrastructure with the State of Alaska Division of Public Health.",
-    tags: ["Public Health Systems", "TB Case Management", "Policy Design", "Infrastructure Strengthening"],
-    delay: 0,
-  },
-  {
-    label: "Consultancy · DNP Clinical Placement",
-    client: "Washington Board of Nursing (WABON)",
-    title: "Nursing Workforce Development & Education Policy",
-    desc: "Contributed to statewide nursing education and workforce policy through a clinical placement with the Washington Board of Nursing. Presented original research at the Council on Nursing Education in WA State (CNEWS) Conference and directly to the WABON Board. Served as a member of the Washington Center for Nursing (WCN) Technical Taskforce on Nursing Education Research.",
-    tags: ["Workforce Policy", "Nursing Education", "Research & Presentation", "Taskforce Leadership"],
-    delay: 120,
-  },
-];
-
-export function ProjectsSection() {
+export function ProjectsSection({ projects }: { projects: Project[] }) {
   return (
     <section id="projects" style={styles.section}>
       <div style={styles.inner}>
@@ -43,7 +23,7 @@ export function ProjectsSection() {
 
         <div style={styles.grid}>
           {projects.map((project, i) => (
-            <Reveal key={i} direction="up" delay={project.delay}>
+            <Reveal key={i} direction="up" delay={i * 120}>
               <ProjectCard {...project} />
             </Reveal>
           ))}
@@ -53,7 +33,7 @@ export function ProjectsSection() {
   );
 }
 
-function ProjectCard({ label, client, title, desc, tags }: Omit<Project, "delay">) {
+function ProjectCard({ label, client, title, desc, tags }: Project) {
   return (
     <div style={styles.card}>
       <div style={styles.cardTop}>

@@ -8,6 +8,7 @@ import { ExperienceSection } from "@/components/rb/ExperienceSection";
 import { EducationSection }  from "@/components/rb/EducationSection";
 import { ProjectsSection }   from "@/components/rb/ProjectsSection";
 import { ContactSection }    from "@/components/rb/ContactSection";
+import { reader }            from "@/lib/keystatic-reader";
 
 // Update this once roselineondeche.co.ke is live and set as the primary domain.
 const siteUrl = "https://roselineondeche.vercel.app";
@@ -58,7 +59,22 @@ const personJsonLd = {
   sameAs: ["https://linkedin.com/in/roseline-buyeka"],
 };
 
-export default function RoselinePage() {
+export default async function RoselinePage() {
+  const [hero, about, contact, impactRaw, expRaw, eduRaw, projRaw] = await Promise.all([
+    reader.singletons.roseline_hero.read(),
+    reader.singletons.roseline_about.read(),
+    reader.singletons.roseline_contact.read(),
+    reader.collections.roseline_impact.all(),
+    reader.collections.roseline_experience.all(),
+    reader.collections.roseline_education.all(),
+    reader.collections.roseline_projects.all(),
+  ]);
+
+  const impact     = impactRaw.sort((a, b) => a.entry.order - b.entry.order).map(i => i.entry);
+  const experience = expRaw.sort((a, b) => a.entry.order - b.entry.order).map(e => e.entry);
+  const education  = eduRaw.sort((a, b) => a.entry.order - b.entry.order).map(e => e.entry);
+  const projects   = projRaw.sort((a, b) => a.entry.order - b.entry.order).map(p => p.entry);
+
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh" }} className="grain">
       <script
@@ -67,13 +83,25 @@ export default function RoselinePage() {
       />
       <LoadingScreen />
       <Nav />
-      <HeroSection />
-      <AboutSection />
-      <ImpactSection />
-      <ExperienceSection />
-      <EducationSection />
-      <ProjectsSection />
-      <ContactSection />
+      <HeroSection eyebrow={hero!.eyebrow} bio={hero!.bio} />
+      <AboutSection
+        heading={about!.heading}
+        paragraph1={about!.paragraph1}
+        paragraph2={about!.paragraph2}
+        location={about!.location}
+      />
+      <ImpactSection cards={impact} />
+      <ExperienceSection items={experience} />
+      <EducationSection cards={education} />
+      <ProjectsSection projects={projects} />
+      <ContactSection
+        email={contact!.email}
+        linkedinUrl={contact!.linkedinUrl}
+        location={contact!.location}
+        availability={contact!.availability}
+        whatsappNumber={contact!.whatsappNumber}
+        introParagraph={contact!.introParagraph}
+      />
     </div>
   );
 }

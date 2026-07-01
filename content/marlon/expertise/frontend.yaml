@@ -1,0 +1,9 @@
+slug: frontend
+order: 6
+title: "Frontend Craft"
+desc: "React, Next.js and TypeScript when the backend needs a face — interfaces with the pacing of physical objects."
+tags:
+  - React
+  - Next.js
+  - TypeScript
+  - Tailwind

@@ -1,0 +1,16 @@
+slug: elyon
+order: 2
+period: "2024"
+role: "Full-stack"
+title: "Elyon Driving"
+subtitle: "School Management System"
+image: "/project-elyon.jpg"
+desc: "A full management system for a driving school — handles student sign-ups, instructor schedules, lesson tracking, and progress. Built to replace the WhatsApp groups and paper registers they were using before."
+linkLabel: "elyon-driving"
+linkHref: "https://github.com/marlonbino/elyon-driving"
+linkType: "Repository"
+tags:
+  - Django
+  - PostgreSQL
+  - Docker
+  - React

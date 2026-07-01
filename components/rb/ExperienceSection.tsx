@@ -7,48 +7,12 @@ interface TimelineItem {
   org: string;
   role: string;
   desc: string;
-  tags?: string[];
+  tags?: readonly string[];
 }
 
-const items: TimelineItem[] = [
-  {
-    period: "Dec 2021 — Present",
-    org: "International Community Health Services (ICHS)",
-    role: "Director of Clinical Services · Seattle, WA",
-    desc: "Leading clinical services across 5 primary care sites serving 32,000+ patients annually — 6 departments, 8 managers, 60+ clinical staff. Scaled Transition of Care services for high-risk patients by 30%. Expanded Diabetes Self-Management Education by 33%. Achieved 100% compliance in AAAHC accreditation and the 2025 CHPW Care Management Audit. Expanding perinatal access by 33% in 2025.",
-    tags: ["Clinical Operations", "Population Health", "Quality Improvement", "Health Equity", "AAAHC", "Value-Based Care"],
-  },
-  {
-    period: "Feb 2021 — Dec 2021",
-    org: "Kaiser Permanente, Bellevue Medical Center",
-    role: "Clinic Operations Manager (RN) · Bellevue, WA",
-    desc: "Led daily operations for a high-volume ambulatory clinic. Oversaw RN and MA teams, staffing, and clinical workflows. Managed a unionized team and led quality improvement initiatives.",
-    tags: ["Ambulatory Care", "Operations Management", "QI", "Union Environment"],
-  },
-  {
-    period: "Oct 2019 — Feb 2021",
-    org: "International Community Health Services (ICHS)",
-    role: "Nurse Supervisor · Seattle, WA",
-    desc: "Oversaw clinical operations across primary care, maternity support, and infant case management. Led Epic EHR transition as superuser and directed AAAHC compliance initiatives.",
-    tags: ["Clinical Supervision", "Epic EHR", "AAAHC", "Maternity Care"],
-  },
-  {
-    period: "Oct 2018 — Oct 2019",
-    org: "Community Health Plan of Washington (CHPW)",
-    role: "Program Manager, Care Improvement · Seattle, WA",
-    desc: "Led population health and quality improvement initiatives across community health centers statewide. Implemented QI programs aligned with CMS, NCQA, and HCA standards.",
-    tags: ["Population Health", "CMS", "NCQA", "Value-Based Care"],
-  },
-  {
-    period: "2007 — 2017",
-    org: "Global Health — Kenya",
-    role: "Senior Program Officer → Nurse/Midwife",
-    desc: "10 years in maternal-child health and HIV programs across multiple counties. Progressed from clinical nurse to Senior Program Officer for PMTCT and Pediatric HIV. Member of the National Pediatric and PMTCT Technical Working Group.",
-    tags: ["PMTCT", "MNCH", "HIV/AIDS", "Public Health"],
-  },
-];
+interface ExperienceProps { items: TimelineItem[] }
 
-export function ExperienceSection() {
+export function ExperienceSection({ items }: ExperienceProps) {
   return (
     <section id="experience" style={styles.section}>
       <div style={styles.inner}>

@@ -3,7 +3,14 @@
 import Image from "next/image";
 import { Reveal } from "@/components/rb/Reveal";
 
-export function AboutSection() {
+interface AboutProps {
+  heading: string;
+  paragraph1: string;
+  paragraph2: string;
+  location: string;
+}
+
+export function AboutSection({ heading, paragraph1, paragraph2, location }: AboutProps) {
   return (
     <section id="about" style={styles.section}>
       <div style={styles.inner}>
@@ -26,15 +33,11 @@ export function AboutSection() {
         <Reveal direction="right" delay={150}>
           <div style={styles.textCol}>
             <span style={styles.sectionLabel}>About</span>
-            <h2 style={styles.heading}>Healthcare leader. 18 years in.</h2>
+            <h2 style={styles.heading}>{heading}</h2>
             <div style={styles.hairline} />
-            <p style={styles.paragraph}>
-              I lead clinical services at ICHS in Seattle — a federally qualified community health center serving 32,000+ patients across 5 sites. My work sits at the intersection of clinical operations, population health, and health equity. I've spent my career building systems that actually reach the people who need them most.
-            </p>
-            <p style={styles.paragraph}>
-              I'm appointed to the WA Maternal Mortality Review Panel, sit on the board of Mother Africa, and hold a DNP from the University of Washington.
-            </p>
-            <p style={styles.location}>↳ Seattle, WA · linkedin.com/in/roseline-buyeka</p>
+            <p style={styles.paragraph}>{paragraph1}</p>
+            <p style={styles.paragraph}>{paragraph2}</p>
+            <p style={styles.location}>{location}</p>
           </div>
         </Reveal>
       </div>
