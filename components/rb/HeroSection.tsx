@@ -38,9 +38,9 @@ const vignetteStyle: React.CSSProperties = {
 };
 
 // ─── HeroSection ─────────────────────────────────────────────────────────────
-interface HeroProps { eyebrow: string; bio: string }
+interface HeroProps { eyebrow: string; heroImage: string; bio: string }
 
-export function HeroSection({ eyebrow, bio }: HeroProps) {
+export function HeroSection({ eyebrow, heroImage, bio }: HeroProps) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function HeroSection({ eyebrow, bio }: HeroProps) {
     >
       {/* ── Background image ── */}
       <Image
-        src="/hero-ros2.png"
+        src={heroImage}
         alt="Roseline Buyeka"
         fill
         priority

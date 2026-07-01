@@ -44,6 +44,10 @@ export default config({
           label: 'Credentials bar',
           description: 'The small line of text above your name on the opening screen (e.g. DNP · MPH · MSN · BSN · RN — Seattle, WA)',
         }),
+        heroImage: fields.text({
+          label: 'Hero background photo',
+          description: 'Filename in /public/ (e.g. /hero-ros2.png). Use the Upload Image button to replace it.',
+        }),
         bio: fields.text({
           label: 'Introduction text',
           description: 'The short paragraph that describes what you do — shown below your name on the opening screen.',
@@ -60,6 +64,10 @@ export default config({
         heading: fields.text({
           label: 'Section heading',
           description: 'The large title at the top of the About section.',
+        }),
+        aboutImage: fields.text({
+          label: 'About photo',
+          description: 'Filename in /public/ (e.g. /about-ros2.jpeg). Use the Upload Image button to replace it.',
         }),
         paragraph1: fields.text({
           label: 'First paragraph',
@@ -122,6 +130,10 @@ export default config({
           label: 'Tagline',
           description: 'The small line above your name (e.g. Software Developer · Nairobi).',
         }),
+        heroImage: fields.text({
+          label: 'Hero background photo',
+          description: 'Filename in /public/ (e.g. /hero-dev.jpg). Use the Upload Image button to replace it.',
+        }),
         bio: fields.text({
           label: 'Introduction text',
           description: 'The short paragraph shown below your name on the opening screen.',
@@ -139,6 +151,10 @@ export default config({
           label: 'Section heading',
           description: 'The large title at the top of the About section.',
           multiline: true,
+        }),
+        aboutImage: fields.text({
+          label: 'About photo',
+          description: 'Filename in /public/ (e.g. /portrait-figure.jpg). Use the Upload Image button to replace it.',
         }),
         bio: fields.text({
           label: 'Bio paragraph',

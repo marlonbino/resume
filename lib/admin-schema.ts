@@ -31,6 +31,7 @@ export const SECTIONS: SectionDef[] = [
     yamlPath: 'content/roseline/hero.yaml',
     fields: [
       { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+      { key: 'heroImage', label: 'Hero Background Photo', type: 'image', description: 'The full-screen background photo on the opening screen.' },
       { key: 'bio', label: 'Bio', type: 'multiline' },
     ],
   },
@@ -42,6 +43,7 @@ export const SECTIONS: SectionDef[] = [
     yamlPath: 'content/roseline/about.yaml',
     fields: [
       { key: 'heading', label: 'Heading', type: 'text' },
+      { key: 'aboutImage', label: 'About Photo', type: 'image', description: 'The photo shown next to your bio in the About section.' },
       { key: 'paragraph1', label: 'Paragraph 1', type: 'multiline' },
       { key: 'paragraph2', label: 'Paragraph 2', type: 'multiline' },
       { key: 'location', label: 'Location', type: 'text' },
@@ -155,6 +157,7 @@ export const SECTIONS: SectionDef[] = [
     yamlPath: 'content/marlon/hero.yaml',
     fields: [
       { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+      { key: 'heroImage', label: 'Hero Background Photo', type: 'image', description: 'The full-screen background photo on the opening screen.' },
       { key: 'bio', label: 'Bio', type: 'multiline' },
     ],
   },
@@ -166,6 +169,7 @@ export const SECTIONS: SectionDef[] = [
     yamlPath: 'content/marlon/about.yaml',
     fields: [
       { key: 'heading', label: 'Heading', type: 'multiline' },
+      { key: 'aboutImage', label: 'About Photo', type: 'image', description: 'The photo shown next to your bio in the About section.' },
       { key: 'bio', label: 'Bio', type: 'multiline' },
       { key: 'location', label: 'Location', type: 'text' },
     ],

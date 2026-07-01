@@ -83,9 +83,10 @@ export default async function RoselinePage() {
       />
       <LoadingScreen />
       <Nav />
-      <HeroSection eyebrow={hero!.eyebrow} bio={hero!.bio} />
+      <HeroSection eyebrow={hero!.eyebrow} heroImage={hero!.heroImage ?? ''} bio={hero!.bio} />
       <AboutSection
         heading={about!.heading}
+        aboutImage={about!.aboutImage ?? ''}
         paragraph1={about!.paragraph1}
         paragraph2={about!.paragraph2}
         location={about!.location}

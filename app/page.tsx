@@ -83,10 +83,10 @@ export default async function Home() {
       <ScrollProgressRing />
       <MuseumNav />
 
-      <HeroSection eyebrow={hero!.eyebrow} bio={hero!.bio} />
+      <HeroSection eyebrow={hero!.eyebrow} heroImage={hero!.heroImage ?? ''} bio={hero!.bio} />
 
       <SectionTransition curtainColor="var(--bg)">
-        <AboutSection heading={about!.heading} bio={about!.bio} location={about!.location} />
+        <AboutSection heading={about!.heading} aboutImage={about!.aboutImage ?? ''} bio={about!.bio} location={about!.location} />
       </SectionTransition>
 
       <SectionTransition curtainColor="var(--bg)">

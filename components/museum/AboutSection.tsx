@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-interface AboutProps { heading: string; bio: string; location: string }
+interface AboutProps { heading: string; aboutImage: string; bio: string; location: string }
 
-export function AboutSection({ heading, bio, location }: AboutProps) {
+export function AboutSection({ heading, aboutImage, bio, location }: AboutProps) {
   return (
     <section
       id="about"
@@ -35,7 +35,7 @@ export function AboutSection({ heading, bio, location }: AboutProps) {
               className="img-spotlight"
             >
               <Image
-                src="/portrait-figure.jpg"
+                src={aboutImage}
                 alt="Self-portrait"
                 fill
                 style={{ objectFit: "cover" }}

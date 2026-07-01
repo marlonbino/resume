@@ -2,15 +2,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const heroImages = ["/hero-dev.jpg", "/hero-dev2.jpg"];
+interface HeroProps { eyebrow: string; heroImage: string; bio: string }
 
-interface HeroProps { eyebrow: string; bio: string }
-
-export function HeroSection({ eyebrow, bio }: HeroProps) {
+export function HeroSection({ eyebrow, heroImage, bio }: HeroProps) {
   const [loaded, setLoaded] = useState(false);
-  const [heroImg] = useState(
-    () => heroImages[Math.floor(Math.random() * heroImages.length)]
-  );
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
 
   return (
@@ -27,7 +22,7 @@ export function HeroSection({ eyebrow, bio }: HeroProps) {
       {/* Full-bleed hero image */}
       <div style={{ position: "absolute", inset: 0 }}>
         <Image
-          src={heroImg}
+          src={heroImage}
           alt="Developer workspace"
           fill
           priority

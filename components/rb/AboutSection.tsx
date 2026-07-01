@@ -5,12 +5,13 @@ import { Reveal } from "@/components/rb/Reveal";
 
 interface AboutProps {
   heading: string;
+  aboutImage: string;
   paragraph1: string;
   paragraph2: string;
   location: string;
 }
 
-export function AboutSection({ heading, paragraph1, paragraph2, location }: AboutProps) {
+export function AboutSection({ heading, aboutImage, paragraph1, paragraph2, location }: AboutProps) {
   return (
     <section id="about" style={styles.section}>
       <div style={styles.inner}>
@@ -19,7 +20,7 @@ export function AboutSection({ heading, paragraph1, paragraph2, location }: Abou
           <div style={styles.imageCol}>
             <div style={styles.imageWrapper}>
               <Image
-                src="/about-ros2.jpeg"
+                src={aboutImage}
                 alt="Roseline Buyeka"
                 fill
                 style={{ objectFit: "cover", objectPosition: "center top" }}
